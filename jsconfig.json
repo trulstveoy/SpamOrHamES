@@ -1,0 +1,11 @@
+{
+	"compilerOptions": {
+		"target": "ES6",
+		"module": "system"
+	},
+	"files": [
+		"src/main.js",
+		"src/hello.js"
+	]
+	
+}
