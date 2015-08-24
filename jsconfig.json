@@ -1,7 +1,10 @@
 {
 	"compilerOptions": {
 		"target": "ES6",
-		"module": "system"
+		"module": "commonjs",
+		"outDir": "dist",
+        "rootDir": "src",
+        "sourceMap": true
 	},
 	"files": [
 		"src/main.js",
