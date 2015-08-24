@@ -14,8 +14,8 @@ gulp.task('build', function () {
         .pipe(babel({ 
             modules: 'common'
         }))        
-        .pipe(sourcemaps.write('.'))
-        .pipe(gulp.dest('dist'));
+        .pipe(sourcemaps.write('.', {sourceRoot: '../src'}))
+        .pipe(gulp.dest('lib'));
 });
 
 gulp.task('watch', function() {

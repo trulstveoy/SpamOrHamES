@@ -9,13 +9,13 @@
 			// Type of configuration. Possible values: "node", "mono".
 			"type": "node",
 			// Workspace relative or absolute path to the program.
-			"program": "src/main.js",
+			"program": "lib/main.js",
 			// Automatically stop program after launch.
-			"stopOnEntry": true,			
+			"stopOnEntry": false,			
 			// Use JavaScript source maps (if they exist).
 			"sourceMaps": true,
 			// If JavaScript source maps are enabled, the generated code is expected in this directory.
-			"outDir": "dist"
+			"outDir": "lib"
 			
 		}
 	]
