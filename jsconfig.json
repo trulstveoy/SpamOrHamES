@@ -4,11 +4,13 @@
 		"module": "commonjs",
 		"outDir": "dist",
         "rootDir": "src",
-        "sourceMap": true
+        "sourceMap": true,
+		"experimentalDecorators": true		
 	},
 	"files": [
 		"src/main.js",
-		"src/hello.js"
+		"src/hello.js",
+		"src/tokenizer.js"
 	]
 	
 }

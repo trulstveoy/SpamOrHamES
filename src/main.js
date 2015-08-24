@@ -1,8 +1,9 @@
-import { Hello } from './hello';
+import { Tokenizer } from './tokenizer';
 
-var h = new Hello();
-h.world()
+var tokenizer = new Tokenizer();
+tokenizer.getMessages('../data/training.txt', tokens => {
+	console.log(tokens);
+});
 
-var s = h.str();
 
-console.log(s);
+
