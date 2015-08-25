@@ -1,18 +1,23 @@
 import path from 'path';
-import lineReader from 'line-reader';
+import fs from 'fs';
 
 export class Tokenizer{
-	async getMessages(filename, callback){
+	getMessages(filename) {
 		var fullname = path.join(__dirname, filename);
-		lineReader.eachLine(fullname, (line, last) => {
-			var tokens = line.split('\t').filter(token =>{
-				return token.trim() !== '';
-			});		
-			
-			var label = tokens[0] === 'ham' ? 1 : 0;
-			var message = tokens[1];			
-			
-			callback({label:label, message:message});
+		var content = fs.readFileSync(fullname, 'utf8');
+		var lines = content.split('\n');
+		var messages = lines.filter(line => {
+			return line.trim() !== '';	
+		}).map(line => {
+			var tokens = line.split('\t');
+			var label = tokens[0];
+			if(tokens[1] === undefined){
+				console.log(line);
+			}
+			var words = tokens[1].split(' ');
+			return {label: label, words: words}
 		});
+		
+		return messages;
 	}
 }

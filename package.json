@@ -18,6 +18,6 @@
     "gulp-watch": "^4.3.5"
   },
   "dependencies": {
-    "line-reader": "^0.2.4"
+    "promise": "^7.0.4"
   }
 }

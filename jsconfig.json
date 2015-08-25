@@ -8,6 +8,7 @@
 		"experimentalDecorators": true		
 	},
 	"files": [
+		"typings/node/node.d.ts",
 		"src/main.js",
 		"src/hello.js",
 		"src/tokenizer.js"
