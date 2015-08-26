@@ -12,9 +12,13 @@ export class Tokenizer{
 			var tokens = line.split('\t');
 			var label = tokens[0];
 			if(tokens[1] === undefined){
-				console.log(line);
+				console.log('Line cannot be parsed: ' + line);
 			}
-			var words = tokens[1].split(' ');
+			
+			var words = tokens[1]
+				.toLowerCase()
+				.match(/\w+/gi);							
+			
 			return {label: label, words: words}
 		});
 		
