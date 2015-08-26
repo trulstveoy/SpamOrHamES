@@ -1,6 +1,7 @@
 To get started:
 
-npm install
+* Install Node (https://nodejs.org/)
+* Run command `npm install`
 
 <br>
 
