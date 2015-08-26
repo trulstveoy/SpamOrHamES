@@ -16,7 +16,6 @@ export class Tokenizer{
 			}
 			
 			var words = tokens[1]
-				.toLowerCase()
 				.match(/\w+/gi);							
 			
 			return {label: label, words: words}
