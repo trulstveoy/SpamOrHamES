@@ -1,22 +1,26 @@
-import { Tokenizer } from './tokenizer';
+import { FileParser } from './fileParser';
+import { Analyzer } from './analyzer';
 
 console.log('start');
 
-var tokenizer = new Tokenizer();
-var messages = tokenizer.getMessages('../data/messages.txt');
-var training = messages.splice(0,999);
-var validation = messages.splice(1000);
+var parser = new FileParser();
+var messages = parser.getMessages('../data/messages.txt');
 
-var spamWithFree = training.filter(message => {
-	return message.label === 'spam' && message.words.indexOf('FREE') !== -1;
-});
+var spamMessages = messages.filter(message => message.label === 'spam');
+var spamWithFree = spamMessages.filter(message => message.text.indexOf('FREE') !== -1);	
 console.log("Spam with FREE: " + spamWithFree.length);
 
-var hamWithFree = training.filter(message => {
-	return message.label === 'ham' && message.words.indexOf('FREE') !== -1;
-});
+var hamMessages = messages.filter(message => message.label === 'ham');
+var hamWithFree = hamMessages.filter(message => message.text.indexOf('FREE') !== -1);	
+console.log("Ham with FREE: " + hamWithFree.length); 
 
-console.log("Ham with FREE: " + hamWithFree.length);
+
+//var validation = messages.splice(0,999);
+var training = messages.splice(0,100);
+
+var analyzer = new Analyzer();
+var classifier = analyzer.train(training, ['txt']);
+
 
 console.log('end')
 	

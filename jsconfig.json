@@ -11,7 +11,8 @@
 		"typings/node/node.d.ts",
 		"src/main.js",
 		"src/hello.js",
+		"src/fileParser.js",
+		"src/analyzer.js",
 		"src/tokenizer.js"
-	]
-	
+	]	
 }
