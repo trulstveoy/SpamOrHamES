@@ -1,8 +1,13 @@
 console.log('start');
 
+//let + const
+let foo = 'foo';
+const bar = 'bar';
+
 //template strings
-var text = 'foo';
+let text = 'foo';
 console.log(`bar != ${text}`);
 
 //destructuring
 
+console.log('end');

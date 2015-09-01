@@ -9,6 +9,7 @@
 	},
 	"files": [
 		"typings/node/node.d.ts",
+		"src/playground.js",
 		"src/main.js",
 		"src/hello.js",
 		"src/fileParser.js",
@@ -16,6 +17,8 @@
 		"src/tokenizer.js"
 	],
 	"exclude": [
-		"node_modules"
+		"node_modules",
+		"lib",
+		"data"
 	]
 }
