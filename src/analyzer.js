@@ -11,63 +11,74 @@ export class Analyzer {
 	}
 	
 	getCountIn(words, word){
-		words.filter(w => w === word).length;
+		var filteredWords = words.filter(w => 
+			w === word);
+		return filteredWords.length;
 	}
 	
-	scoreToken(words, word, groupSize){
+	innerScore(words, word, groupSize){
 		var count = this.getCountIn(words, word);
 		return this.getLaplace(count, groupSize);
 	}
 	
 	analyze(group, totalDocs, classificationTokens){
 		var groupSize = group.length;
-		var totalSize = totalDocs.length;
 		
+				
 		var scoredTokens = classificationTokens.map(ct => {
-			return {token: ct, score: this.scoreToken(group, ct, groupSize) }
+			return {token: ct, score: this.innerScore(group, ct, groupSize) }
 		});
 		
-		var groupProportion = this.getProportion(groupSize, totalSize)
+		var groupProportion = this.getProportion(groupSize, totalDocs)
 		
 		return {
 			proportion: groupProportion,
-			tokenFrequenzies: scoredTokens
+			tokenFrequencies: scoredTokens
 		}
 	}
 	
-	learn(docs, classificationTokens){
+	learn(label, docs, classificationTokens){
 		var total = docs.length;
-		var hamGroup = docs.filter(d => d.label === 'ham').map(d => d.tokens);
-		var spamGroup = docs.filter(d => d.label === 'spam').map(d => d.tokens);
-		
-		var hamAnalyzis = this.analyze(hamGroup, total, classificationTokens);		
-		var spamAnalyzis = this.analyze(spamGroup, total, classificationTokens);
-		
-		return [
-			{label: 'ham', group: hamGroup},
-			{label: 'spam', group: spamGroup},
-		]
+		var group = docs.filter(d => d.label === label).map(d => d.tokens);		
+		var analysis = this.analyze(group, total, classificationTokens);		
+		return analysis;
 	}
 	
-	scoreClass(tokens, foo){
-		
+	tokenScore(token, group){
+		var tokenFreq = group.tokenFrequencies.filter(tf => tf.token === token)[0];
+		if(tokenFreq){
+			return Math.log(tokenFreq.score);
+		}
+		return 0;
 	}
 	
-	classify(groups, text){
-		var tokenizer = new Tokenizer();		
-		var tokenized = tokenizer.tokenize(text);
-		
-		
+	score(tokens, group){		
+		var scores = tokens.map(t => this.tokenScore(t, group));
+		var sumScores = scores.reduce((prev, cur) => prev + cur);		
+		return Math.log(group.proportion + sumScores);
+	}
+	
+	classify(hamGroup, spamGroup){
+		return (text) => {
+			var tokenizer = new Tokenizer();		
+			var tokens = tokenizer.tokenize(text);
+			
+			var hamScore = this.score(tokens, hamGroup);
+			var spamScore = this.score(tokens, spamGroup);
+			
+			if(hamScore > spamScore)
+				return 'ham';
+			
+			return 'spam';
+		}
 	}
 	
 	train(docs, classificationTokens) {
 		
-		var groups = this.learn(docs, classificationTokens);
-		var classifier = this.classify()
-		
-		
-				
-		var s = "a";
+		var hamGroup = this.learn('ham', docs, classificationTokens);
+		var spamGroup = this.learn('spam', docs, classificationTokens);
+		var classifier = this.classify(hamGroup, spamGroup);
+		return classifier;
 	}
 	
 	
