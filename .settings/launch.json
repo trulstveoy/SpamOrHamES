@@ -5,11 +5,26 @@
 	"configurations": [
 		{
 			// Name of configuration; appears in the launch configuration drop down menu.
-			"name": "Debug now!",
+			"name": "SpamOrHam",
 			// Type of configuration. Possible values: "node", "mono".
 			"type": "node",
 			// Workspace relative or absolute path to the program.
 			"program": "lib/main.js",
+			// Automatically stop program after launch.
+			"stopOnEntry": false,			
+			// Use JavaScript source maps (if they exist).
+			"sourceMaps": true,
+			// If JavaScript source maps are enabled, the generated code is expected in this directory.
+			"outDir": "lib"
+			
+		},
+		{
+			// Name of configuration; appears in the launch configuration drop down menu.
+			"name": "Playgroud",
+			// Type of configuration. Possible values: "node", "mono".
+			"type": "node",
+			// Workspace relative or absolute path to the program.
+			"program": "lib/playground.js",
 			// Automatically stop program after launch.
 			"stopOnEntry": false,			
 			// Use JavaScript source maps (if they exist).

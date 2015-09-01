@@ -25,12 +25,7 @@ var correctlyValidated = validation.map(message => {
 	return result === message.label ? 1 : 0;
 }).reduce((prev, cur) => prev + cur);
 
-var avrage = correctlyValidated / validation.length;
-console.log('Based on "txt" correcly validated ' + avrage + '%');
+var percent = (correctlyValidated / validation.length) * 100;
+console.log('Based on "txt" correcly validated ' + percent + '%');
 
-console.log('end')
-	
-
-
-
-
+console.log('end');
