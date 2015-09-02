@@ -14,7 +14,11 @@ gulp.task('build', function () {
         .pipe(babel({ 
             modules: 'common',
             stage: 0,
-            optional: ['es7.asyncFunctions'] 
+            optional: [
+                'es7.asyncFunctions',
+                'runtime'
+            ],
+            externalHelpers: true,
         }))        
         .pipe(sourcemaps.write('.', {sourceRoot: '../src'}))
         .pipe(gulp.dest('lib'));

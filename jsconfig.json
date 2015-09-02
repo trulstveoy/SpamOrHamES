@@ -5,7 +5,7 @@
 		"outDir": "dist",
         "rootDir": "src",
         "sourceMap": true,
-		"experimentalDecorators": true		
+		"experimentalDecorators": true
 	},
 	"files": [
 		"typings/node/node.d.ts",

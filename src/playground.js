@@ -8,6 +8,18 @@ const bar = 'bar';
 let text = 'foo';
 console.log(`bar != ${text}`);
 
-//destructuring
+var sym = Symbol();
+var promise = new Promise();
 
+var s = '';
+
+async function testAsync() {
+    if( Math.round(Math.random()) )
+        return 'Success!';
+    else
+        throw 'Failure!';
+}
+
+//destructuring
 console.log('end');
+
