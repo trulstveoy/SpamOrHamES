@@ -9,7 +9,7 @@
 			// Type of configuration. Possible values: "node", "mono".
 			"type": "node",
 			// Workspace relative or absolute path to the program.
-			"program": "lib/main.js",
+			"program": "lib/main2.js",
 			// Automatically stop program after launch.
 			"stopOnEntry": false,			
 			// Use JavaScript source maps (if they exist).

@@ -19,7 +19,7 @@ var training = messages.splice(1000);
 
 var analyzer = new Analyzer();
 var classifier = analyzer.train(training, ['txt']);
-
+main
 var correctlyValidated = validation.map(message => {
 	var result = classifier(message.text);
 	return result === message.label ? 1 : 0;
