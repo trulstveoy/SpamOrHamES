@@ -16,3 +16,13 @@ Second is the message.
 5. Message should be word tokenized into array.
 6. Seperate training into sets of ham and spam. Calculate token (word) frequency pr set.
 
+## Oppgaver:
+1. Lage skall som scorer random, 50% sjanse
+2. Telle opp antall ord, vekte dem i forhold til ham/spam
+3. Trekke analyzer og laplace ut i egne klasser
+4. Importere bayes modul
+5. Lage modul av egne analyzers
+6. Ansyc filinnlesing med async/await/Promises
+7. Gjøre bruk av default parameteres
+8. Gjøre bruk av destructuring
+9. Lage testsuite
