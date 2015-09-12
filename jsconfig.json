@@ -6,17 +6,7 @@
         "rootDir": "src",
         "sourceMap": true,
 		"experimentalDecorators": true
-	},
-	"files": [
-		"typings/node/node.d.ts",
-		"src/playground.js",
-		"src/main.js",
-		"src/main2.js",
-		"src/hello.js",
-		"src/fileParser.js",
-		"src/analyzer.js",
-		"src/tokenizer.js"
-	],
+	},	
 	"exclude": [
 		"node_modules",
 		"lib",
