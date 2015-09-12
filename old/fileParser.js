@@ -6,9 +6,9 @@ export class FileParser{
 		var fullname = path.join(__dirname, filename);
 		var content = fs.readFileSync(fullname, 'utf8');
 		var lines = content.split('\n');
-		var messages = lines.filter(line => {
-			return line.trim() !== '';	
-		}).map(line => {			
+		var messages = lines.filter(line => 
+			line.trim() !== ''
+		).map(line => {			
 			var tokens = line.split('\t');
 			var label = tokens[0];
 			var text = tokens[1];
