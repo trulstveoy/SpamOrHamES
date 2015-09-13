@@ -1,24 +1,22 @@
 import read from './file';
+import analyze from './analyzer'
 
 console.log('start');
 
 let messages = read('../data/messages.txt');
 
-var classify = function(text){
-	if(text.toLowerCase().indexOf('free') === -1){	
-		return 'ham';
-	} else{
-		return 'spam';
-	}
-}
+var validation = messages.splice(0, 49);
+var training = messages.splice(50, 200);
 
-var correct = messages.map(m => 
+let classify = analyze(training);
+
+let correct = validation.map(m => 
 	m.label === classify(m.text) ? 1 : 0
 ).reduce((p,c) => 
 	p + c
 );
 
-var avg = (correct / messages.length) * 100;
+let avg = (correct / validation.length) * 100;
 console.log('Correcly validated ' + avg + '%');
 
 console.log('end');
