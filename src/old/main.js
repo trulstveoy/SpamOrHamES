@@ -4,7 +4,7 @@ import { Analyzer } from './analyzer';
 console.log('start');
 
 var parser = new FileParser();
-var messages = parser.getMessages('../data/messages.txt');
+var messages = parser.getMessages('../../data/messages_small.txt');
 
 var spamMessages = messages.filter(message => message.label === 'spam');
 var spamWithFree = spamMessages.filter(message => message.text.indexOf('FREE') !== -1);	
@@ -14,8 +14,8 @@ var hamMessages = messages.filter(message => message.label === 'ham');
 var hamWithFree = hamMessages.filter(message => message.text.indexOf('FREE') !== -1);	
 console.log("Ham with FREE: " + hamWithFree.length); 
 
-var validation = messages.splice(0,999);
-var training = messages.splice(1000);
+var validation = messages.splice(0,49);
+var training = messages.splice(50);
 
 var analyzer = new Analyzer();
 var classifier = analyzer.train(training, ['txt']);

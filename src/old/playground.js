@@ -13,7 +13,7 @@ var promise = new Promise();
 
 var s = '';
 
-async function testAsync() {
+async function testAsync() { 
     if( Math.round(Math.random()) )
         return 'Success!';
     else

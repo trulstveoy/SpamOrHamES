@@ -22,8 +22,7 @@ export class Analyzer {
 	}
 	
 	analyze(group, totalDocs, classificationTokens){
-		var groupSize = group.length;
-		
+		var groupSize = group.length;		
 				
 		var scoredTokens = classificationTokens.map(ct => {
 			return {token: ct, score: this.innerScore(group, ct, groupSize) }
