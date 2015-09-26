@@ -39,42 +39,26 @@ export default function analyze(messages, classificationTokens) {
 	
 	return (text) => {
 		const tokens = tokenize(text);
-		const scores = tokens.map(t => {
-			let freq = 
+		//ham
+		const hamSums = tokens.map(t => {
+			let freq = hamScores.filter(s => s.token === t)[0];
+			return !!freq ? Math.log(freq.score): 0;				
 		})
+		const hamSum = hamSums.reduce((prev, cur) => prev + cur);	
+		const finalHamScore = Math.log(hamProportion + hamSum);		
 		
-	};	
-	
-	// let map = new Map();
-	// for(let message of messages) {
-	// 	let score = message.label === 'ham' ? 1 : -1;		
-	// 	let words = tokenize(message.text);	
-	// 	if(!words) {
-	// 		console.log('message: ' + message.text)
-	// 		continue;
-	// 	}
-	// 	for(let word of words){
-	// 		if(!word){
-	// 			console.log('undefined word');
-	// 		}
-	// 		if(!map.has(word)){
-	// 			map.set(word, score);
-	// 		} else{
-	// 			var newScore = map.get(word) + score;
-	// 			map.set(word, newScore);
-	// 		}
-	// 	}
-	// }
-	// 
-	// return function(text) {		
-	// 	let words = tokenize(text);
-	// 	var score = words.map(word => 
-	// 		map.has(word) ? map.get(word) : 0
-	// 	).reduce((p, c) =>{
-	// 		p + c
-	// 	});		
-	// 	
-	// 	return score >= 0 ? 'ham' : 'spam';
-	// }
+		//spam
+		const spamSums = tokens.map(t => {
+			let freq = spamScores.filter(s => s.token === t)[0];
+			return !!freq ? Math.log(freq.score): 0;				
+		})
+		var spamSum = spamSums.reduce((prev, cur) => prev + cur);	
+		const finalSpamScore = Math.log(spamProportion + spamSum);
+		
+		if(finalHamScore >= finalSpamScore)
+			return 'ham';
+			
+		return 'spam';
+	};		
 }
 
