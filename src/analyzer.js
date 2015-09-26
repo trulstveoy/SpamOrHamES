@@ -1,9 +1,10 @@
 import { bayes } from './statistics';
 
-let tokenize = function(text){
+let tokenize = function(text) {	
 	if(!text){
 		console.log('text is nothing');
-	}
+	}	
+	
 	return text.match(/\w+/gi);	
 }
 
@@ -29,7 +30,7 @@ export default function analyze(messages, classificationTokens) {
 		
 	//spam
 	const spamCount = spamMessages.length;	
-	const spamProportion = spamCount / spamMessages;
+	const spamProportion = spamCount / messageCount;
 	const spamWords = [].concat.apply([], spamMessages.map(m => 
 		tokenize(m.text)	
 	));

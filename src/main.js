@@ -3,10 +3,10 @@ import analyze from './analyzer'
 
 console.log('start');
 
-let messages = read('../data/messages.txt');
+let messages = read('../data/messages_small.txt');
 
-var validation = messages.splice(0, 499);
-var training = messages.splice(500);
+var validation = messages.splice(0, 49);
+var training = messages.splice(50);
 
 let classify = analyze(training, ['txt']);
 
