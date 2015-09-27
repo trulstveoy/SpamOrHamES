@@ -29,6 +29,6 @@ const correct = messages.map(m =>
 
 const avg = (correct / messages.length) * 100;
 
-console.log('Correcly validated ' + avg + '%');
+console.log(`Correcly validated ${avg}%`);
 
 console.log('end');
