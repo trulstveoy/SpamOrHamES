@@ -4,8 +4,15 @@ var babel = require('gulp-babel');
 var concat = require('gulp-concat');
 var watch = require('gulp-watch');
 var plumber = require('gulp-plumber');
+var minimist = require('minimist');
 
-var source = 'src/**/*.js';
+var knownOptions = {
+  string: 'dir',
+  default: { dir: 'src' }
+};
+
+var options = minimist(process.argv.slice(2), knownOptions);
+var source = options.dir + '/**/*.js';
 
 gulp.task('build', function () {
     return gulp.src(source)        
@@ -25,5 +32,5 @@ gulp.task('build', function () {
 });
 
 gulp.task('watch', function() {
-   gulp.watch(source, ['build']); 
+   gulp.watch(source, ['build']);
 });

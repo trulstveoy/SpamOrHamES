@@ -19,7 +19,8 @@
     "gulp-concat": "^2.6.0",
     "gulp-plumber": "^1.0.1",
     "gulp-sourcemaps": "^1.5.2",
-    "gulp-watch": "^4.3.5"
+    "gulp-watch": "^4.3.5",
+    "minimist": "1.2.0"
   },
   "dependencies": {
     "babel-runtime": "^5.8.20",
