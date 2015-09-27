@@ -5,7 +5,7 @@ var concat = require('gulp-concat');
 var watch = require('gulp-watch');
 var plumber = require('gulp-plumber');
 
-var source = 'src/**/*.js';
+var source = '2/**/*.js';
 
 gulp.task('build', function () {
     return gulp.src(source)        

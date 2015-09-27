@@ -13,7 +13,7 @@ const messages = [
 	{label:'spam', text:'Sunshine Quiz Wkly Q! Win a top Sony DVD player if u know which country the Algarve is in? Txt ansr to 82277. £1.50 SP:Tyrone'},
 ];
 
-const classify = function(text){
+function classify(text){
 	if(text.toLowerCase().indexOf('free') === -1){	
 		return 'ham';
 	} else{

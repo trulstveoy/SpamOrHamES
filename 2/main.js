@@ -3,15 +3,15 @@ import * as fs from 'fs';
 
 console.log('start');
 
-var fullname = path.join(__dirname, '../data/messages.txt');
-var content = fs.readFileSync(fullname, 'utf8');
-var lines = content.split('\n');
-var messages = lines.filter(line => 
+const fullname = path.join(__dirname, '../data/messages.txt');
+const content = fs.readFileSync(fullname, 'utf8');
+const lines = content.split('\n');
+const messages = lines.filter(line => 
 	line.trim() !== ''
 ).map(line => {			
-	var tokens = line.split('\t');
-	var label = tokens[0];
-	var text = tokens[1];
+	const tokens = line.split('\t');
+	const label = tokens[0];
+	const text = tokens[1];
 	
 	if(!label || !text){
 		console.log('line cannot be parsed: ' + line);
@@ -20,7 +20,7 @@ var messages = lines.filter(line =>
 	return {label: label, text: text }
 });
 
-var classify = function(text){
+function classify(text){
 	if(text.toLowerCase().indexOf('free') === -1){	
 		return 'ham';
 	} else{
@@ -28,13 +28,13 @@ var classify = function(text){
 	}
 }
 
-var correct = messages.map(m => 
+const correct = messages.map(m => 
 	m.label === classify(m.text) ? 1 : 0
 ).reduce((p,c) => 
 	p + c
 );
 
-var avg = (correct / messages.length) * 100;
-console.log('Correcly validated ' + avg + '%');
+const avg = (correct / messages.length) * 100;
+console.log(`Correcly validated ${avg}%`);
 
 console.log('end');
