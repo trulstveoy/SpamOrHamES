@@ -9,15 +9,13 @@ const lines = content.split('\n');
 const messages = lines.filter(line => 
 	line.trim() !== ''
 ).map(line => {			
-	const tokens = line.split('\t');
-	const label = tokens[0];
-	const text = tokens[1];
-	
+	const [label, text] = line.split('\t');
+
 	if(!label || !text){
 		console.log('line cannot be parsed: ' + line);
 	}						
 	
-	return {label: label, text: text }
+	return {label, text}
 });
 
 function classify(text){
