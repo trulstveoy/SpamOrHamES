@@ -1,6 +1,6 @@
 console.log('start');
 
-var messages = [		
+const messages = [
 	{label:'ham', text:'o until jurong point, crazy.. Available only in bugis n great world la e buffet... Cine there got amore wat...'},
 	{label:'spam', text:'FreeMsg Hey there darling it\'s been 3 week\'s now and no word back! I\'d like some fun you up for it still? Tb ok! XxX std chgs to send, £1.50 to rcv'},
 	{label:'ham', text:'ham	Eh u remember how 2 spell his name... Yes i did. He v naughty make until i v wet.'},
@@ -13,7 +13,7 @@ var messages = [
 	{label:'spam', text:'Sunshine Quiz Wkly Q! Win a top Sony DVD player if u know which country the Algarve is in? Txt ansr to 82277. £1.50 SP:Tyrone'},
 ];
 
-var classify = function(text){
+const classify = function(text){
 	if(text.toLowerCase().indexOf('free') === -1){	
 		return 'ham';
 	} else{
@@ -21,13 +21,14 @@ var classify = function(text){
 	}
 }
 
-var correct = messages.map(m => 
+const correct = messages.map(m =>
 	m.label === classify(m.text) ? 1 : 0
 ).reduce((p,c) => 
 	p + c
 );
 
-var avg = (correct / messages.length) * 100;
+const avg = (correct / messages.length) * 100;
+
 console.log('Correcly validated ' + avg + '%');
 
 console.log('end');
