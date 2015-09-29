@@ -1,3 +1,27 @@
+
+function analyzeType(messages, classificationTokens, type) {
+	const messageCount = messages.length;
+	const typeMessages = messages.filter(m => m.label === type);
+	const type = typeMessages.length;
+	const typeWords = [].concat.apply([], typeMessages.map(m => this.tokenize(m.text)));
+	const proportion = type / messageCount;
+	const scores = classificationTokens.map(ct => {
+		return {token: ct, score: this.score(typeWords, ct, type)};
+	});
+
+	return {proportion, scores};
+}
+
+function classifyType(tokens, type) {
+	const sums = tokens.map(t => {
+		let freq = type.scores.filter(s => s.token === t)[0];
+		return !!freq ? Math.log(freq.score): 0;
+	});
+	const sum = sums.reduce((prev, cur) => prev + cur);
+
+	return Math.log(type.proportion + sum);
+}
+
 export default class Bayes {
 	
 	constructor(tokenize){
@@ -17,49 +41,14 @@ export default class Bayes {
 	}	
 	
 	analyze(messages, classificationTokens){
-		//ham
-		const hamMessages = messages.filter(m => m.label === 'ham');
-		const spamMessages = messages.filter(m => m.label === 'spam');
-		
-		const messageCount = messages.length;
-		
-		const hamCount = hamMessages.length;
-		this.hamProportion = hamCount / messageCount;
-		const hamWords = [].concat.apply([], hamMessages.map(m => 
-			this.tokenize(m.text)	
-		));	
-		this.hamScores = classificationTokens.map(ct => {
-			return {token: ct, score: this.score(hamWords, ct, hamCount)};		
-		});	
-			
-		//spam
-		const spamCount = spamMessages.length;	
-		this.spamProportion = spamCount / messageCount;
-		const spamWords = [].concat.apply([], spamMessages.map(m => 
-			this.tokenize(m.text)	
-		));
-		this.spamScores = classificationTokens.map(ct => {
-			return {token: ct, score: this.score(spamWords, ct, spamCount)};
-		});
+		this.ham = analyzeType(messages, classificationTokens, 'ham');
+		this.spam = analyzeType(messages, classificationTokens, 'spam');
 	}
 	
 	classify(text){
 		const tokens = this.tokenize(text);
-		//ham
-		const hamSums = tokens.map(t => {
-			let freq = this.hamScores.filter(s => s.token === t)[0];
-			return !!freq ? Math.log(freq.score): 0;				
-		});
-		const hamSum = hamSums.reduce((prev, cur) => prev + cur);	
-		const finalHamScore = Math.log(this.hamProportion + hamSum);		
-		
-		//spam
-		const spamSums = tokens.map(t => {
-			let freq = this.spamScores.filter(s => s.token === t)[0];
-			return !!freq ? Math.log(freq.score): 0;				
-		});
-		const spamSum = spamSums.reduce((prev, cur) => prev + cur);
-		const finalSpamScore = Math.log(this.spamProportion + spamSum);
+		const finalHamScore = classifyType(tokens, this.ham);
+		const finalSpamScore = classifyType(tokens, this.spam);
 		
 		return finalHamScore >= finalSpamScore ? 'ham' : 'spam';
 	}
