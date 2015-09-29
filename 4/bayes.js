@@ -39,7 +39,7 @@ export default class Bayes {
 			this.tokenize(m.text)	
 		));
 		this.spamScores = classificationTokens.map(ct => {
-			return {token: ct, score: this.score(spamWords, ct, hamCount)};		
+			return {token: ct, score: this.score(spamWords, ct, spamCount)};
 		});
 	}
 	
