@@ -6,7 +6,7 @@ console.log('start');
 const tokenize = function(text) {	
 	if(!text) {	console.log('text is nothing');	}		
 	return text.match(/\w+/gi);	
-}
+};
 
 const messages = read('../data/messages_small.txt');
 
@@ -22,6 +22,6 @@ const correct = validation.map(m =>
 ).reduce((p,c) => p + c);
 
 const avg = (correct / validation.length) * 100;
-console.log('Correcly validated ' + avg + '%');
+console.log(`Correcly validated ${avg}%`);
 
 console.log('end');

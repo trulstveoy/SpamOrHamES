@@ -9,7 +9,7 @@ export default class Bayes {
 	}
 	
 	score(tokens, token, size) {
-		let occurence = tokens.filter(t => 
+		const occurence = tokens.filter(t =>
 			t === token
 		).length;
 		
@@ -49,7 +49,7 @@ export default class Bayes {
 		const hamSums = tokens.map(t => {
 			let freq = this.hamScores.filter(s => s.token === t)[0];
 			return !!freq ? Math.log(freq.score): 0;				
-		})
+		});
 		const hamSum = hamSums.reduce((prev, cur) => prev + cur);	
 		const finalHamScore = Math.log(this.hamProportion + hamSum);		
 		
@@ -57,13 +57,10 @@ export default class Bayes {
 		const spamSums = tokens.map(t => {
 			let freq = this.spamScores.filter(s => s.token === t)[0];
 			return !!freq ? Math.log(freq.score): 0;				
-		})
-		var spamSum = spamSums.reduce((prev, cur) => prev + cur);	
+		});
+		const spamSum = spamSums.reduce((prev, cur) => prev + cur);
 		const finalSpamScore = Math.log(this.spamProportion + spamSum);
 		
-		if(finalHamScore >= finalSpamScore)
-			return 'ham';
-			
-		return 'spam';
+		return finalHamScore >= finalSpamScore ? 'ham' : 'spam';
 	}
 }
