@@ -5,61 +5,90 @@ export default class Bayes {
 	}
 	
 	laplace(count, total){
-		return (count + 1) / total + 1;
+		return (count + 1) / (total + 1);
 	}
 	
 	score(tokens, token, size) {
 		let occurence = tokens.filter(t => 
 			t === token
 		).length;
-		
-		return this.laplace(occurence, size);	
+		const score = this.laplace(occurence, size);
+		return score;	
 	}	
 	
 	analyze(messages, classificationTokens){
-		//ham
-		const hamMessages = messages.filter(m => m.label === 'ham');
-		const spamMessages = messages.filter(m => m.label === 'spam');
 		
 		const messageCount = messages.length;
 		
-		const hamCount = hamMessages.length;
-		this.hamProportion = hamCount / messageCount;
-		const hamWords = [].concat.apply([], hamMessages.map(m => 
-			this.tokenize(m.text)	
-		));	
+		//ham
+		const hamGroup = messages.filter(m => 
+			m.label === 'ham').map(m => 
+				this.tokenize(m.text));
+		const hamGroupCount = hamGroup.length;
+		
+		this.hamProportion = hamGroupCount / messageCount;		
 		this.hamScores = classificationTokens.map(ct => {
-			return {token: ct, score: this.score(hamWords, ct, hamCount)};		
-		});	
-			
-		//spam
-		const spamCount = spamMessages.length;	
-		this.spamProportion = spamCount / messageCount;
-		const spamWords = [].concat.apply([], spamMessages.map(m => 
-			this.tokenize(m.text)	
-		));
-		this.spamScores = classificationTokens.map(ct => {
-			return {token: ct, score: this.score(spamWords, ct, hamCount)};		
+			const countIn = hamGroup.filter(hg => 
+				hg.indexOf(ct) !== -1).length;
+			const tokenScore = this.laplace(countIn, hamGroupCount);
+			return {
+				token:ct,
+				value: tokenScore
+			}				
 		});
+		
+		//ham
+		const spamGroup = messages.filter(m => 
+			m.label === 'spam').map(m => 
+				this.tokenize(m.text));
+		const spamGroupCount = spamGroup.length;
+		
+		this.spamProportion = spamGroupCount / messageCount;		
+		this.spamScores = classificationTokens.map(ct => {
+			const countIn = spamGroup.filter(hg => 
+				hg.indexOf(ct) !== -1).length;
+			const value = this.laplace(countIn, spamGroupCount);
+			return {
+				token:ct,
+				value: value
+			}				
+		});
+		
+		console.log(this.hamProportion);
+		//console.log(this.hamScores);
+		
+		console.log(this.spamProportion);
+		//console.log(this.spamScores);		
 	}
 	
 	classify(text){
-		const tokens = this.tokenize(text);
-		//ham
-		const hamSums = tokens.map(t => {
-			let freq = this.hamScores.filter(s => s.token === t)[0];
-			return !!freq ? Math.log(freq.score): 0;				
-		})
-		const hamSum = hamSums.reduce((prev, cur) => prev + cur);	
-		const finalHamScore = Math.log(this.hamProportion + hamSum);		
+		const tokens = this.tokenize(text);		
+		if(!tokens){
+			console.log(text);
+		}
 		
-		//spam
-		const spamSums = tokens.map(t => {
-			let freq = this.spamScores.filter(s => s.token === t)[0];
-			return !!freq ? Math.log(freq.score): 0;				
-		})
-		var spamSum = spamSums.reduce((prev, cur) => prev + cur);	
-		const finalSpamScore = Math.log(this.spamProportion + spamSum);
+		//console.log('ham-------------------------------------------');
+		const hamScoresSum = tokens.map(t => {
+			const score = this.hamScores.filter(s => s.token === t)[0];
+			const value = !!score ? Math.log(score.value): 0;
+			//console.log(t + ' ' + value);
+			return value;
+		}).reduce((prev, cur) => prev + cur);	
+		const test = this.hamProportion + hamScoresSum;
+		const finalHamScore = Math.log(this.hamProportion) + hamScoresSum;		
+		console.log('HamScore: ' + finalHamScore);
+		//console.log('d ' + test);
+		//console.log(Math.log(-40.208231123065495));
+		
+		//console.log('spam-------------------------------------------');
+		const spamScoresSum = tokens.map(t => {
+			const score = this.spamScores.filter(s => s.token === t)[0];
+			const value = !!score ? Math.log(score.value): 0;
+			//console.log(t + ' ' + value);
+			return value;			
+		}).reduce((prev, cur) => prev + cur);		
+		const finalSpamScore = Math.log(this.spamProportion) + spamScoresSum; 
+		console.log('SpamScore: ' + finalSpamScore);		
 		
 		if(finalHamScore >= finalSpamScore)
 			return 'ham';

@@ -16,7 +16,6 @@ const training = messages.splice(50);
 const bayes = new Bayes(tokenize);
 bayes.analyze(training, ['txt']);
 
-
 const correct = validation.map(m => 
 	m.label === bayes.classify(m.text) ? 1 : 0
 ).reduce((p,c) => p + c);

@@ -1,5 +1,5 @@
-import path from 'path';
-import fs from 'fs';
+import * as path from 'path';
+import * as fs from 'fs';
 
 export default function	read(filename) {
 	var fullname = path.join(__dirname, filename);
@@ -17,7 +17,9 @@ export default function	read(filename) {
 		}						
 		
 		return {label: label, text: text }
-	});
+	}).filter(m => 
+		m.text !== ''
+	);
 	
 	return messages;
 }
