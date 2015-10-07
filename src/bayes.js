@@ -62,7 +62,7 @@ export default class Bayes {
 	}
 	
 	classify(text){
-		const tokens = this.tokenize(text);		
+		const tokens = this.tokenize(text).sort();		
 		if(!tokens){
 			console.log(text);
 		}
@@ -74,9 +74,9 @@ export default class Bayes {
 			//console.log(t + ' ' + value);
 			return value;
 		}).reduce((prev, cur) => prev + cur);	
-		const test = this.hamProportion + hamScoresSum;
+		//const test = this.hamProportion + hamScoresSum;
 		const finalHamScore = Math.log(this.hamProportion) + hamScoresSum;		
-		console.log('HamScore: ' + finalHamScore);
+		//console.log('HamScore: ' + finalHamScore);
 		//console.log('d ' + test);
 		//console.log(Math.log(-40.208231123065495));
 		
@@ -88,7 +88,7 @@ export default class Bayes {
 			return value;			
 		}).reduce((prev, cur) => prev + cur);		
 		const finalSpamScore = Math.log(this.spamProportion) + spamScoresSum; 
-		console.log('SpamScore: ' + finalSpamScore);		
+		//console.log('SpamScore: ' + finalSpamScore);		
 		
 		if(finalHamScore >= finalSpamScore)
 			return 'ham';
