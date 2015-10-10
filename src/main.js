@@ -10,12 +10,12 @@ const tokenize = function(text) {
 	return uniqueTokens;	
 }
 
-const messages = read('../data/messages.txt');
-const validation = messages.splice(0,1000);
-const training = messages;
+const messages = read('../data/messages_small.txt');
+const validation = messages.splice(0,10);
+const training = messages.splice(0, 10);
 
 const classificationTokens = 
-	[...new Set([].concat.apply([], training.map(x =>
+	[...new Set([].concat(...training.map(x =>
 		tokenize(x.text))))].map(t =>
 			t.toLowerCase());
 

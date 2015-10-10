@@ -3,9 +3,14 @@
 * Install Node (https://nodejs.org/)
 * Run command `npm install`
 
-## Prerequisites:
-1. Understand Bayes Theorem (in context of one word - FREE)
-2. Understand Laplace smoothing
+## Oppgave 1 - Enkel klassifisering
+Lag en enkel classify-funksjon som tar inn en streng og returnerer hvorvidt
+teksten er spam eller ham. Funksjonen kan skrives i src/main.js hvor det også
+noen meldinger som funksjonen kan anvendes på. Hint: I spamn forekommer ofte order
+"free". Bruk så mye ES-6-funksjonalitet du kan, en fin start er let, const og arrow
+functions.
+
+##Oppgave 2
 
 ## Tasks:
 1. Get to know the dataset
@@ -26,3 +31,7 @@ Second is the message.
 7. Gjøre bruk av default parameteres
 8. Gjøre bruk av destructuring
 9. Lage testsuite
+
+* lag branch for 1,2,3,4
+* rendyrk oppgavene 1-4
+* dryss ut es6 features

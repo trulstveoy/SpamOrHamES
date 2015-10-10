@@ -27,7 +27,7 @@ gulp.task('build', function () {
             ],
             externalHelpers: true,
         }))        
-        .pipe(sourcemaps.write('.', {sourceRoot: '../src'}))
+        .pipe(sourcemaps.write('.', {sourceRoot: '../' + options.dir}))
         .pipe(gulp.dest('lib'));
 });
 
