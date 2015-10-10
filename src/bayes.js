@@ -17,6 +17,7 @@ export default class Bayes {
 	}	
 	
 	analyze(messages, classificationTokens){
+		console.log('Analyzing...')
 		
 		const messageCount = messages.length;
 		
@@ -54,11 +55,7 @@ export default class Bayes {
 			}				
 		});
 		
-		console.log(this.hamProportion);
-		//console.log(this.hamScores);
-		
-		console.log(this.spamProportion);
-		//console.log(this.spamScores);		
+		console.log('Analyzing complete')
 	}
 	
 	classify(text){
@@ -67,28 +64,19 @@ export default class Bayes {
 			console.log(text);
 		}
 		
-		//console.log('ham-------------------------------------------');
 		const hamScoresSum = tokens.map(t => {
 			const score = this.hamScores.filter(s => s.token === t)[0];
 			const value = !!score ? Math.log(score.value): 0;
-			//console.log(t + ' ' + value);
 			return value;
 		}).reduce((prev, cur) => prev + cur);	
-		//const test = this.hamProportion + hamScoresSum;
-		const finalHamScore = Math.log(this.hamProportion) + hamScoresSum;		
-		//console.log('HamScore: ' + finalHamScore);
-		//console.log('d ' + test);
-		//console.log(Math.log(-40.208231123065495));
+		const finalHamScore = Math.log(this.hamProportion) + hamScoresSum;	
 		
-		//console.log('spam-------------------------------------------');
 		const spamScoresSum = tokens.map(t => {
 			const score = this.spamScores.filter(s => s.token === t)[0];
 			const value = !!score ? Math.log(score.value): 0;
-			//console.log(t + ' ' + value);
 			return value;			
 		}).reduce((prev, cur) => prev + cur);		
 		const finalSpamScore = Math.log(this.spamProportion) + spamScoresSum; 
-		//console.log('SpamScore: ' + finalSpamScore);		
 		
 		if(finalHamScore >= finalSpamScore)
 			return 'ham';

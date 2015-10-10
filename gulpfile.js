@@ -5,6 +5,7 @@ var concat = require('gulp-concat');
 var watch = require('gulp-watch');
 var plumber = require('gulp-plumber');
 var minimist = require('minimist');
+var del = require('del');
 
 var knownOptions = {
   string: 'dir',
@@ -13,6 +14,10 @@ var knownOptions = {
 
 var options = minimist(process.argv.slice(2), knownOptions);
 var source = options.dir + '/**/*.js';
+
+gulp.task('clean', function() {
+  return del(['lib']);
+});
 
 gulp.task('build', function () {
     return gulp.src(source)        

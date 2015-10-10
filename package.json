@@ -3,9 +3,9 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
-  "repository" : {
-    "type" : "git",
-    "url" : "git@github.com:trulstveoy/SpamOrHamES.git"
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:trulstveoy/SpamOrHamES.git"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -14,6 +14,7 @@
   "license": "ISC",
   "devDependencies": {
     "babel": "^5.8.21",
+    "del": "^2.0.2",
     "gulp": "^3.9.0",
     "gulp-babel": "^5.2.1",
     "gulp-concat": "^2.6.0",
