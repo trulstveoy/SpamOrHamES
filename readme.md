@@ -3,14 +3,37 @@
 * Install Node (https://nodejs.org/)
 * Run command `npm install`
 
+#Om oppgavene
+Vi skal lage en enkel spam-gjenkjennings-funksjon. Vi har et datasett med spam
+og ham fra SMS vi benytter som utgangspunkt.
+
 ## Oppgave 1 - Enkel klassifisering
 Lag en enkel classify-funksjon som tar inn en streng og returnerer hvorvidt
 teksten er spam eller ham. Funksjonen kan skrives i src/main.js hvor det også
-noen meldinger som funksjonen kan anvendes på. Hint: I spamn forekommer ofte order
-"free". Bruk så mye ES-6-funksjonalitet du kan, en fin start er let, const og arrow
-functions.
+noen meldinger som funksjonen kan anvendes på. 
 
-##Oppgave 2
+Hint: 
+I spam forekommer ofte order "free". Bruk så mye ES-6-funksjonalitet du kan,
+en fin start er let, const og arrow functions.
+
+##Oppgave 2 - Filinnlesing
+Utvid programmet med filinnlesing og parsing. I data-folderen ligger det filer som 
+inneholder meldinger med både spam og ham. Meldingene har samme struktur som i 
+oppgave 1, og label/text separeres med tab. Hvert label/text-par separeres med newline.
+
+Hint: 
+Node har en innebygd fil-IO modul med funksjonen 'readFileSync(filename, 'utf8')'
+som leser hele innholdet av en fil. Running folder får man ved å benytte den
+globale varibalen '__dirname'.
+
+Node moduler kan importeres med ES6-module syntax. Fillesing/parsing er også en fin
+kandidat for modularisering. Meldingene har strukturen label/tekst - kan destructuring
+være nyttig her?
+
+##Oppgave 3 - Analysering og klassifisering
+
+
+
 
 ## Tasks:
 1. Get to know the dataset
