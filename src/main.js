@@ -1,11 +1,12 @@
 import read from './file';
 import Bayes from './bayes';
+import {flattenArray, uniqueArray} from './utils';
 
 console.log('start');
 
 const tokenize = function(text) {		
 	const lowercaseTokens = (text.match(/\w+/gi) || []).map(t => t.toLowerCase());
-	const uniqueTokens = [...new Set(lowercaseTokens)];
+	const uniqueTokens = uniqueArray(lowercaseTokens);
 	return uniqueTokens;	
 }
 
@@ -13,9 +14,9 @@ const messages = read('../data/messages_medium.txt');
 const validation = messages.splice(0,100);
 const training = messages;
 
-const classificationTokens = 
-	[...new Set([].concat(...training.map(x =>
-		tokenize(x.text))))].map(t =>
+const classificationTokens = flattenArray(
+	training.map(x =>
+		tokenize(x.text))).map(t =>
 			t.toLowerCase());
 
 const bayes = new Bayes(tokenize);

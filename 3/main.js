@@ -3,15 +3,17 @@ import analyze from './analyzer'
 
 console.log('start');
 
-const messages = read('../data/messages.txt');
+const messages = read('../data/messages_small.txt');
 
-const validation = messages.splice(0, 499);
-const training = messages.splice(500);
+const validation = messages.splice(0, 10);
+const training = messages;
+
+
 
 const classify = analyze(training);
 
-const correct = validation.map(m => 
-	m.label === classify(m.text) ? 1 : 0
+const correct = validation.map(({label, text}) => 
+	label === classify(text) ? 1 : 0
 ).reduce((p,c) => 
 	p + c
 );
