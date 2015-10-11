@@ -1,19 +1,23 @@
 import read from './file';
-import analyze from './analyzer'
+import Analyzer from './analyzer'
 
 console.log('start');
+
+function tokenize (text){
+	if(!text) console.log('text is nothing');
+	return text.match(/\w+/gi) || [];	
+}
 
 const messages = read('../data/messages_small.txt');
 
 const validation = messages.splice(0, 10);
 const training = messages;
 
-
-
-const classify = analyze(training);
+const analyzer = new Analyzer(tokenize);
+analyzer.analyze(training);
 
 const correct = validation.map(({label, text}) => 
-	label === classify(text) ? 1 : 0
+	label === analyzer.classify(text) ? 1 : 0
 ).reduce((p,c) => 
 	p + c
 );

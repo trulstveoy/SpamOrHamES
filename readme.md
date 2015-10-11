@@ -31,6 +31,23 @@ kandidat for modularisering. Meldingene har strukturen label/tekst - kan destruc
 være nyttig her?
 
 ##Oppgave 3 - Analysering og klassifisering
+I spamgjenkjenning er det som regel slik at man avender historiske data som grunnlag for å avgjøre om
+noe er spam eller ham. Benytt en del av datasettet for å trene opp algoritmen din. Når det er gjort
+kan de resterende data anvendes for å måle hvor god metoden er. La oss kalle treningen for analyse, mens
+andre steg, målingen, kalles for klassifisering. Vi trenger en funksjon analyze(..) og en funksjon
+classify(..).
+
+Hint: 
+I en slik tostegs-operasjon er det naturlig at analyze- og classify-funksjonene deler tilstand. Klasser kan
+ha tilstand.
+
+I analysefasen er det et poeng at man vekter hvert alle ord og gir dem en score i henhold til hvor ofte de
+forekommer i treningssettet. En Map() kan ha ord/score.
+
+##Oppgave 4 - Anvend sannsynlighetsteori
+Å finne opp gode algoritmer for å score et ord er vanskelig. Men det er heller ikke nødvendig, slike
+algorimter er allerede etablert innenfor sannsynlighetsteori og statistikk. Bayes' teorem er slik, og den
+skal vi anvende nå.
 
 
 
