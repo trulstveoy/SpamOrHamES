@@ -8,9 +8,9 @@ function tokenize (text){
 	return text.match(/\w+/gi) || [];	
 }
 
-const messages = read('../data/messages_small.txt');
+const messages = read('../data/messages_medium.txt');
 
-const validation = messages.splice(0, 10);
+const validation = messages.splice(0, 100);
 const training = messages;
 
 const analyzer = new Analyzer(tokenize);

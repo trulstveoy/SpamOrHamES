@@ -1,26 +1,34 @@
 import read from './file';
-import Bayes from './bayes'
+import Bayes from './bayes';
+import {flattenArray, uniqueArray} from './utils';
 
 console.log('start');
 
-const tokenize = function(text) {	
-	if(!text) {	console.log('text is nothing');	}		
-	return text.match(/\w+/gi);	
-};
+const tokenize = function(text) {		
+	const lowercaseTokens = (text.match(/\w+/gi) || []).map(t => t.toLowerCase());
+	const uniqueTokens = uniqueArray(lowercaseTokens);
+	return uniqueTokens;	
+}
 
 const messages = read('../data/messages_small.txt');
+const validation = messages.splice(0,10);
+const training = messages;
 
-const validation = messages.splice(0, 49);
-const training = messages.splice(50);
+const classificationTokens = flattenArray(
+	training.map(x =>
+		tokenize(x.text))).map(t =>
+			t.toLowerCase());
 
 const bayes = new Bayes(tokenize);
-bayes.analyze(training, ['txt']);
+bayes.analyze(training, classificationTokens);
 
-const correct = validation.map(m => 
-	m.label === bayes.classify(m.text) ? 1 : 0
-).reduce((p,c) => p + c);
+console.log('Classifying...')
+const correct = validation.map(m => {
+	const result = bayes.classify(m.text);
+	return m.label === result ? 1 : 0
+}).reduce((p,c) => p + c);
 
 const avg = (correct / validation.length) * 100;
-console.log(`Correcly validated ${avg}%`);
+console.log('Correcly classified ' + avg + '%');
 
 console.log('end');

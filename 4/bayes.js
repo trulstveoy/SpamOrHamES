@@ -1,27 +1,3 @@
-
-function analyzeType(messages, classificationTokens, type) {
-	const messageCount = messages.length;
-	const typeMessages = messages.filter(m => m.label === type);
-	const type = typeMessages.length;
-	const typeWords = [].concat.apply([], typeMessages.map(m => this.tokenize(m.text)));
-	const proportion = type / messageCount;
-	const scores = classificationTokens.map(ct => {
-		return {token: ct, score: this.score(typeWords, ct, type)};
-	});
-
-	return {proportion, scores};
-}
-
-function classifyType(tokens, type) {
-	const sums = tokens.map(t => {
-		let freq = type.scores.filter(s => s.token === t)[0];
-		return !!freq ? Math.log(freq.score): 0;
-	});
-	const sum = sums.reduce((prev, cur) => prev + cur);
-
-	return Math.log(type.proportion + sum);
-}
-
 export default class Bayes {
 	
 	constructor(tokenize){
@@ -29,27 +5,79 @@ export default class Bayes {
 	}
 	
 	laplace(count, total){
-		return (count + 1) / total + 1;
+		return (count + 1) / (total + 1);
 	}
 	
 	score(tokens, token, size) {
-		const occurence = tokens.filter(t =>
+		let occurence = tokens.filter(t => 
 			t === token
 		).length;
-		
-		return this.laplace(occurence, size);	
+		const score = this.laplace(occurence, size);
+		return score;	
 	}	
 	
+	tokenizeGroup(messages, label){
+		return messages.filter(m => 
+			m.label === label).map(m => 
+				this.tokenize(m.text));
+	}
+	
+	scoreGroup(classificationTokens, group, groupCount){
+		return classificationTokens.map(ct => {
+			const countIn = group.filter(hg => 
+				hg.indexOf(ct) !== -1).length;
+			const tokenScore = this.laplace(countIn, groupCount);
+			return {
+				token:ct,
+				value: tokenScore
+			}				
+		});
+	}
+	
 	analyze(messages, classificationTokens){
-		this.ham = analyzeType(messages, classificationTokens, 'ham');
-		this.spam = analyzeType(messages, classificationTokens, 'spam');
+		console.log('Analyzing...')
+		
+		const messageCount = messages.length;		
+		
+		//spam
+		const hamGroup = this.tokenizeGroup(messages, 'ham');
+		const hamGroupCount = hamGroup.length;
+		
+		this.hamProportion = hamGroupCount / messageCount;		
+		this.hamScores = this.scoreGroup(classificationTokens, hamGroup, hamGroupCount); 		
+		
+		//ham
+		const spamGroup = this.tokenizeGroup(messages, 'spam');
+		const spamGroupCount = spamGroup.length;
+		
+		this.spamProportion = spamGroupCount / messageCount;		
+		this.spamScores = this.scoreGroup(classificationTokens, spamGroup, spamGroupCount);
+		
+		console.log('Analyzing complete')
+	}
+	
+	summarizeScores(tokens, group, proportion){
+		const sum = tokens.map(t => {
+			const score = group.filter(s => s.token === t)[0];
+			const value = !!score ? Math.log(score.value) : 0;
+			return value;
+		}).reduce((prev, cur) => prev + cur);	
+		const finalSum = Math.log(proportion) + sum;
+		return finalSum;
 	}
 	
 	classify(text){
-		const tokens = this.tokenize(text);
-		const finalHamScore = classifyType(tokens, this.ham);
-		const finalSpamScore = classifyType(tokens, this.spam);
+		const tokens = this.tokenize(text).sort();
+		if(!tokens){
+			console.log(text);
+		}
 		
-		return finalHamScore >= finalSpamScore ? 'ham' : 'spam';
+		const hamScoresSum = this.summarizeScores(tokens, this.hamScores, this.hamProportion);		
+		const spamScoresSum = this.summarizeScores(tokens, this.spamScores, this.spamProportion);		
+		
+		if(hamScoresSum >= spamScoresSum)
+			return 'ham';
+			
+		return 'spam';
 	}
 }
