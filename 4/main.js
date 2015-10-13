@@ -1,5 +1,5 @@
 import read from './file';
-import Bayes from './bayes';
+import Analyzer from './analyzer';
 import {flattenArray, uniqueArray} from './utils';
 
 console.log('start');
@@ -10,8 +10,8 @@ const tokenize = function(text) {
 	return uniqueTokens;	
 }
 
-const messages = read('../data/messages_small.txt');
-const validation = messages.splice(0,10);
+const messages = read('../data/messages_large.txt');
+const validation = messages.splice(0,1000);
 const training = messages;
 
 const classificationTokens = flattenArray(
@@ -19,12 +19,12 @@ const classificationTokens = flattenArray(
 		tokenize(x.text))).map(t =>
 			t.toLowerCase());
 
-const bayes = new Bayes(tokenize);
-bayes.analyze(training, classificationTokens);
+const analyzer = new Analyzer(tokenize);
+analyzer.analyze(training, classificationTokens);
 
 console.log('Classifying...')
 const correct = validation.map(m => {
-	const result = bayes.classify(m.text);
+	const result = analyzer.classify(m.text);
 	return m.label === result ? 1 : 0
 }).reduce((p,c) => p + c);
 
