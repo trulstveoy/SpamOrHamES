@@ -9,11 +9,11 @@ og ham fra SMS vi benytter som utgangspunkt.
 
 ## Oppgave 1 - Enkel klassifisering
 Lag en enkel classify-funksjon som tar inn en streng og returnerer hvorvidt
-teksten er spam eller ham. Funksjonen kan skrives i src/main.js hvor det også
+teksten er spam eller ham. Funksjonen kan skrives i src/main.js hvor det også er
 noen meldinger som funksjonen kan anvendes på. 
 
 Hint: 
-I spam forekommer ofte order "free". Bruk så mye ES-6-funksjonalitet du kan,
+I spam forekommer ofte order "free". Bruk så mye ES6-funksjonalitet du kan,
 en fin start er let, const og arrow functions.
 
 ##Oppgave 2 - Filinnlesing
@@ -41,7 +41,7 @@ Hint:
 I en slik tostegs-operasjon er det naturlig at analyze- og classify-funksjonene deler tilstand. Klasser kan
 ha tilstand.
 
-I analysefasen er det et poeng at man vekter hvert alle ord og gir dem en score i henhold til hvor ofte de
+I analysefasen er det et poeng at man vekter alle ord og gir dem en score i henhold til hvor ofte de
 forekommer i treningssettet. En Map() kan ha ord/score.
 
 ##Oppgave 4 - Anvend sannsynlighetsteori
@@ -52,40 +52,51 @@ skal vi anvende nå.
 Bayes vil vekte hvert unike ord i treningssettet, og hvert unike ord vil få to scores. En score for hvor mye
 ordet indikerer spam, og en score for hvor mye det indikerer ham. Når dette er gjort er vi klare for
 klassifisering. Vi tar alle ordene fra en tekst i valideringssettet og summerer scores gjort i analysen.
-Da ser vi om det scoret høyest som ham, eller høyest som spam.
+Da får vi vite om det scoret høyest som ham, eller høyest som spam.
 
 Hint:
 I denne oppgaven er vi opptatt av å vekte ord. For å dele opp en tekst-streng i et array av tokens (ord)
 så er det praktisk med en tokenize-funksjon som benytter regex. Feks noe slikt, som gir lowercase tokens:
+```
 const lowercaseTokens = (text.match(/\w+/gi) || []).map(t => t.toLowerCase());
+```
 
 Vi skal vekte alle unike ord i treningssettet. Vi må finne disse og legge i en egen collection. La oss kalle
 den 'classificationTokens'. Et Set har unike entries.
 
-I ext-folderen ligger det en modul som heter bayes. Den har 2 funksjoner. Den første,
+I ext-folderen ligger det en modul som heter bayes som vi skal bruke. Den har 2 funksjoner. Den første,
 scoreToken, brukes i analysen. Den tar inn parameteret token som er et ord fra classificationTokens, og et
 parameter group. Group er et array av token arrays, basert på tekster i valideringssettet, gruppert som ham eller
 spam. Den kan se slik ut (spam):
+```
 [
 	['i am spam'],
 	['and i am spam too']	
 ]
+```
 Eller ham:
+```
 [
 	['i am ham'],
 	['and i am ham too']	
 ]
+```
 Funksjonen returner en score, og kan altså score for både spam og ham, avhengig av input.
 
-Den andre funksjonen heter classifyTokens og tar inn 3 parametre. Den første er alle unike tokens i en tekst som skal
-klassifiseres.
-Eks: ['am', 'i', 'spam', 'or', 'ham']
+Den andre funksjonen skal brukes i klassifiseringen heter classifyTokens. Den tar inn 3 parametre. 
+Den første er unike tokens i en tekst som skal klassifiseres.
+Eks: 
+```
+ ['am', 'i', 'spam', 'or', 'ham']
+```
 
 Den andre er et array av object literals som baserer seg på scorede classificationTokens fra analysen. Eks:
+```
 [
 	{ token: 'text', value: 0.123 },
 	{ token: 'free', value: 0.321 }
 ]
+```
 
 Den tredje er proportion, forholdet mellom antallet i en gruppe (spam eller ham) og det totale antallet meldinger,
-altså sum(group) / sum(messages).
+altså group.length / messages.length.
