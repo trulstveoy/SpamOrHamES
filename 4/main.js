@@ -10,8 +10,8 @@ const tokenize = function(text) {
 	return uniqueTokens;	
 }
 
-const messages = read('../data/messages_large.txt');
-const validation = messages.splice(0,1000);
+const messages = read('../data/messages_small.txt');
+const validation = messages.splice(0,10);
 const training = messages;
 
 const classificationTokens = flattenArray(
@@ -20,7 +20,7 @@ const classificationTokens = flattenArray(
 			t.toLowerCase());
 
 const analyzer = new Analyzer(tokenize);
-analyzer.analyze(training, classificationTokens);
+analyzer.analyze(training, classificationTokens.splice(0, 40));
 
 console.log('Classifying...')
 const correct = validation.map(m => {
