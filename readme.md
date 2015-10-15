@@ -1,11 +1,6 @@
-# To get started:
-
-* Install Node (https://nodejs.org/)
-* Run command `npm install`
-
-#Om oppgavene
-Vi skal lage en enkel spam-gjenkjennings-funksjon. Vi har et datasett med spam
-og ham fra SMS vi benytter som utgangspunkt.
+## For å komme igang:
+1. `npm install`
+2. `gulp watch`
 
 ## Oppgave 1 - Enkel klassifisering
 Lag en enkel classify-funksjon som tar inn en streng og returnerer hvorvidt
