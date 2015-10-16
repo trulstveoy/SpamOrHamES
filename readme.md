@@ -5,11 +5,14 @@
 ## Oppgave 1 - Enkel klassifisering
 Lag en enkel classify-funksjon som tar inn en streng og returnerer hvorvidt
 teksten er spam eller ham. Funksjonen kan skrives i src/main.js hvor det også er
-noen meldinger som funksjonen kan anvendes på. 
+noen meldinger som funksjonen kan anvendes på. Skriv til konsollet hvor mange prosent
+riktig du fikk.
 
 Hint: 
 I spam forekommer ofte order "free". Bruk så mye ES6-funksjonalitet du kan,
 en fin start er let, const og arrow functions.
+
+Skriv til konsoll kan benytte string literals.
 
 ##Oppgave 2 - Filinnlesing
 Utvid programmet med filinnlesing og parsing. I data-folderen ligger det filer som 

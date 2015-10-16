@@ -13,22 +13,6 @@ const messages = [
 	{label:'spam', text:'Sunshine Quiz Wkly Q! Win a top Sony DVD player if u know which country the Algarve is in? Txt ansr to 82277. £1.50 SP:Tyrone'},
 ];
 
-function classify(text){
-	if(text.toLowerCase().indexOf('free') === -1) {	
-		return 'ham';
-	} else{
-		return 'spam';
-	}
-}
-
-const correct = messages.map(m =>
-	m.label === classify(m.text) ? 1 : 0
-).reduce((p,c) => 
-	p + c
-);
-
-const avg = (correct / messages.length) * 100;
-
-console.log(`Correcly validated ${avg}%`);
+///todo: write code
 
 console.log('end');
