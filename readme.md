@@ -42,6 +42,13 @@ ha tilstand.
 I analysefasen er det et poeng at man vekter alle ord og gir dem en score i henhold til hvor ofte de
 forekommer i treningssettet. En Map() kan ha ord/score.
 
+For å vekte ord er det nødvendig å kunne dele opp en tekst i ord. For å dele opp en tekst-streng i et array av 
+tokens (ord) så er det praktisk med en tokenize-funksjon som benytter regex. Feks noe slikt,
+som gir lowercase tokens:
+```
+const lowercaseTokens = (text.match(/\w+/gi) || []).map(t => t.toLowerCase());
+```
+
 ##Oppgave 4 - Anvend sannsynlighetsteori
 Å finne opp gode algoritmer for å score et ord er vanskelig. Men det er heller ikke nødvendig, slike
 algorimter er allerede etablert innenfor sannsynlighetsteori og statistikk. Bayes' teorem er slik, og den
@@ -53,12 +60,6 @@ klassifisering. Vi tar alle ordene fra en tekst i valideringssettet og summerer 
 Da får vi vite om det scoret høyest som ham, eller høyest som spam.
 
 Hint:
-I denne oppgaven er vi opptatt av å vekte ord. For å dele opp en tekst-streng i et array av tokens (ord)
-så er det praktisk med en tokenize-funksjon som benytter regex. Feks noe slikt, som gir lowercase tokens:
-```
-const lowercaseTokens = (text.match(/\w+/gi) || []).map(t => t.toLowerCase());
-```
-
 Vi skal vekte alle unike ord i treningssettet. Vi må finne disse og legge i en egen collection. La oss kalle
 den 'classificationTokens'. Et Set har unike entries.
 
