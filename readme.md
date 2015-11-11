@@ -72,4 +72,6 @@ The second part is the classification. We'll measure how good our algorithm is a
 	* Summarize the score for each message. If it's above 0, it's ham. Below, its spam.
 6. Print to console the percentage of correct results.
 
+![Image of algorithm](https://github.com/trulstveoy/SpamOrHamES/blob/master/illustration.jpg)
+
 Solutions can be found here: https://github.com/trulstveoy/SpamOrHamES/tree/solutions, in folders 1,2,3
