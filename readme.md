@@ -26,7 +26,7 @@ break point in src/main.js. Rerun with F5. Notice that VSCode goes into debug mo
 ## Assignment 1 - Simple classification
 Create a classify-function. The function takes a string parameter and returns whether the string
 is spam or ham. Write the function in src/main.js. There you'll also find some messages that
-you can apply your function to. Write to console the percentage of correct results.
+you can apply your function to. Print to console the percentage of correct results.
 
 ###Hints:
 1. Use ES6 features let, const, arrow function and string literals. 
@@ -57,31 +57,19 @@ The second part is the classification. We'll measure how good our algorithm is a
 1. Split the messages array in two, validation (20 items) and training (the rest). You can use the array-function 'splice'. 
 2. Since we're trainng and analyzing we need to keep some kind of state. Classes are good at state. Create an ES6 class.
 4. The class needs an analyze-method. This method should do a few things:
-	* foo bar
-	* def
+	* Take the training array as parameter.
+	* Tokenize each message so that we get an array of tokens (words). You can use this snippet:
+	  ```
+	  const lowercaseTokens = (text.match(/\w+/gi) || []).map(t => t.toLowerCase());
+      ```
+	* Score each word. If the word is within a ham message +1, withing a spam message -1.
+	* Add every word to a Map (ES6 feature) toghether with its score.
+	* Finally we should hav a map of every word in all our training messages, and a score for each word.
+5. The class also needs a classify-method. It should do a few things too:
+	* Take a single validation message as parameter
+	* Tokenize the message
+	* Look up each word in the Map created during analyzation and find it's score.
+	* Summarize the score for each message. If it's above 0, it's ham. Below, its spam.
+6. Print to console the percentage of correct results.
 
-I spamgjenkjenning er det som regel slik at man avender historiske data som grunnlag for å avgjøre om
-noe er spam eller ham. Benytt en del av datasettet for å trene opp algoritmen din. Når det er gjort
-kan de resterende data anvendes for å måle hvor god metoden er. La oss kalle treningen for analyse, mens
-andre steg, målingen, kalles for klassifisering. Vi trenger en funksjon analyze(..) og en funksjon
-classify(..).
-
-Hint: 
-I en slik tostegs-operasjon er det naturlig at analyze- og classify-funksjonene deler tilstand. Klasser kan
-ha tilstand.
-
-I analysefasen er det et poeng at man vekter alle ord og gir dem en score i henhold til hvor ofte de
-forekommer i treningssettet. En Map() kan ha ord/score.
-
-For å vekte ord er det nødvendig å kunne dele opp en tekst i ord. For å dele opp en tekst-streng i et array av 
-tokens (ord) så er det praktisk med en tokenize-funksjon som benytter regex. Feks noe slikt,
-som gir lowercase tokens:
-```
-const lowercaseTokens = (text.match(/\w+/gi) || []).map(t => t.toLowerCase());
-```
-
-
-
-
-
-Solutions can be found here: https://github.com/trulstveoy/SpamOrHamES/tree/solutions, in folders 1,2,3,4
+Solutions can be found here: https://github.com/trulstveoy/SpamOrHamES/tree/solutions, in folders 1,2,3
