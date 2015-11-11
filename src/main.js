@@ -13,6 +13,6 @@ const messages = [
 	{label:'spam', text:'Sunshine Quiz Wkly Q! Win a top Sony DVD player if u know which country the Algarve is in? Txt ansr to 82277. £1.50 SP:Tyrone'},
 ];
 
-console.log('hello world');
+//todo: write code here
 
 console.log('end');
