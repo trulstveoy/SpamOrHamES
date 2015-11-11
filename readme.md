@@ -28,7 +28,7 @@ Create a classify-function. The function takes a string parameter and returns wh
 is spam or ham. Write the function in src/main.js. There you'll also find some messages that
 you can apply your function to. Write to console the percentage of correct results.
 
-Hints:
+###Hints:
 1. Use ES6 features let, const, arrow function and string literals. 
 2. The word "free" appears frequently in spam.
 3. In javascript for(..)-constructs isn't used very frequently. Instead you have LINQ-like features for list transformation.
@@ -39,7 +39,7 @@ Extend the program to read from file and parse the file contents. You'll find sp
 We're going to use the small file. The messages have the same structure as the array in assignment 2. 
 Label/text is separated by tab. Each line is separated by newline.
 
-Hints:
+###Hints:
 1. The messages in the file have the structure label/tekst. We can use the ES6-feature destructuring.
 2. To read from file we'll use Node's file system module called 'fs'. It can be imported using the ES6 module syntax. Use the "import * as"-syntax.
 3. The specific function on the file system module is readFileSync(filePath, 'utf-8') which will return the content of the file as string.
