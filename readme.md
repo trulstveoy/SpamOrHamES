@@ -47,18 +47,18 @@ Label/text is separated by tab. Each line is separated by newline.
 5. To concatinate a path we can use the function `path.join(__dirname, filename)` located in Node's path module.
 
 ## Assignment 3 - Analyze and classify
-When recognizing spam it's common to use historic data to decide if an unknown message is spam or ham. Now we're going to build an algorithm
-that will be trained with a part of our dataset. With the rest of our data set we'll find out how intelligent our algorithm is.
+When trying recognizing spam it's common technique to use historic data to decide if an unknown message is spam or ham. Now we're going 
+to build an algorithm that will be trained with a part of our dataset. With the rest of our data set we'll find out how intelligent our algorithm is.
 
 We'll split the task in two. The first part is the analyzation. We'll train our algorithm, teach it to recognize spam.
 The second part is the classification. We'll measure how good our algorithm is at recognizing spam.
 
 ###Hints:
-1. foo bar
-2. bar foo
-4. foo bar
-
-
+1. Split the messages array in two, validation (20 items) and training (the rest). You can use the array-function 'splice'. 
+2. Since we're trainng and analyzing we need to keep some kind of state. Classes are good at state. Create an ES6 class.
+4. The class needs an analyze-method. This method should do a few things:
+	a. foo bar
+	b. def
 
 I spamgjenkjenning er det som regel slik at man avender historiske data som grunnlag for å avgjøre om
 noe er spam eller ham. Benytt en del av datasettet for å trene opp algoritmen din. Når det er gjort
