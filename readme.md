@@ -40,9 +40,9 @@ We're going to use the small file. The messages have the same structure as the a
 Label/text is separated by tab. Each line is separated by newline.
 
 ###Hints:
-1. The messages in the file have the structure label/tekst. We can use the ES6-feature destructuring.
+1. The messages in the file have the structure label/text. We can use the ES6-feature destructuring.
 2. To read from file we'll use Node's file system module called 'fs'. It can be imported using the ES6 module syntax. Use the "import * as"-syntax.
-3. The specific function on the file system module is readFileSync(filePath, 'utf-8') which will return the content of the file as string.
+3. The function we'll use on the fs-module is named readFileSync(filePath, 'utf-8') which will return the content of the file as string.
 4. We can get the running folder from Node by using the global variable __dirname.
 5. To concatinate a path we can use the function `path.join(__dirname, filename)` located in Node's path module.
 
@@ -53,8 +53,10 @@ that will be trained with a part of our dataset. With the rest of our data set w
 We'll split the task in two. The first part is the analyzation. We'll train our algorithm, teach it to recognize spam.
 The second part is the classification. We'll measure how good our algorithm is at recognizing spam.
 
-Hints:
-1. 
+###Hints:
+1. foo bar
+2. bar foo
+4. foo bar
 
 
 
