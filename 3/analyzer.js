@@ -6,17 +6,13 @@ export default class Analyzer{
 	}
 	
 	analyze(messages) {				
-		for(const message of messages) {
+		for(let message of messages) {
 			const score = message.label === 'ham' ? 1 : -1;		
 			const words = this.tokenize(message.text);	
 			
-			for(const word of words){			
-				if(!this.map.has(word)){
-					this.map.set(word, score);
-				} else {
-					const newScore = this.map.get(word) + score;
-					this.map.set(word, newScore);
-				}
+			for(let word of words){
+				const currentScore = this.map.get(word) || 0;
+				this.map.set(word, currentScore + score);
 			}
 		}		
 	}
