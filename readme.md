@@ -57,8 +57,8 @@ The second part is the classification. We'll measure how good our algorithm is a
 1. Split the messages array in two, validation (20 items) and training (the rest). You can use the array-function 'splice'. 
 2. Since we're trainng and analyzing we need to keep some kind of state. Classes are good at state. Create an ES6 class.
 4. The class needs an analyze-method. This method should do a few things:
-	a. foo bar
-	b. def
+	* foo bar
+	* def
 
 I spamgjenkjenning er det som regel slik at man avender historiske data som grunnlag for å avgjøre om
 noe er spam eller ham. Benytt en del av datasettet for å trene opp algoritmen din. Når det er gjort
