@@ -9,8 +9,6 @@
 5. Run `gulp watch` (this runs our compiler)
 6. Open VSCode. Choose File->Open Folder. Choose c:\spamorham
 
-7. Øysteins link til diverse
-
 ## Assignment 0 - Hello World
 We'll start by making sure that the environment is working correctly. We're going to write hello world,
 compile, run and debug our program. All of the assignments will be
