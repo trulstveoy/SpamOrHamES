@@ -15,7 +15,7 @@ const messages = [
 
 function classify(text){
 	if(text.toLowerCase().indexOf('free') === -1) {	
-		return 'ham2';
+		return 'ham';
 	} else{
 		return 'spams';
 	}
